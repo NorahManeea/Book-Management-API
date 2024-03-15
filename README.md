@@ -17,4 +17,15 @@ The Book Management API is a RESTful web service built using Spring Boot to mana
 - PostgreSQL
 - Maven
 
+## Endpoints
+``` 
+GET /api/book
 
+POST /api/book
+
+GET /api/book/{bookId}
+
+PUT /api/book/{bookId}
+
+DELETE /api/book/{bookId}
+```
