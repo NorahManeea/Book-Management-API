@@ -1,7 +1,7 @@
-# Library Management API
+# Book Management API
 
 ## Overview
-The Library Management API is a RESTful web service built using Spring Boot to manage a collection of books. It provides endpoints for performing CRUD (Create, Read, Update, Delete) operations on books.
+The Book Management API is a RESTful web service built using Spring Boot to manage a collection of books. It provides endpoints for performing CRUD (Create, Read, Update, Delete) operations on books.
 
 ## Features
 - **Library Management**: Add, update, delete, and view book records.
@@ -18,5 +18,3 @@ The Library Management API is a RESTful web service built using Spring Boot to m
 - Maven
 
 
-## Note
-Please be aware that the API is still under development and may not be fully functional.
