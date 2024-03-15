@@ -6,7 +6,7 @@ The Book Management API is a RESTful web service built using Spring Boot to mana
 ## Features
 - **Library Management**: Add, update, delete, and view book records.
 - **RESTful API**: Exposes REST endpoints for interacting with the system programmatically.
-- **Data Persistence**: Stores book data in a relational database (e.g., PostgreSQL, MySQL).
+- **Data Persistence**: Stores book data in a relational database (PostgreSQL).
 - **Security**: Basic authentication for accessing the application endpoints.
 - **Error Handling**: Custom error handling for handling exceptions gracefully.
 
