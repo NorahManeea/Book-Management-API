@@ -1,10 +1,14 @@
 package com.example.BookManagementAPI.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
+
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Book {
@@ -13,13 +17,15 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "isbn", nullable = false, unique = true)
+    @NotBlank
+    @Size(min = 0, max = 20)
     private String isbn;
-
     @Column(name = "title", nullable = false)
     private String title;
-
-    @Column(name = "description", nullable = false)
     private String description;
+    private String genre;
+    private int publicationYear;
+    private int totalPages;
+    private String author;
 
 }

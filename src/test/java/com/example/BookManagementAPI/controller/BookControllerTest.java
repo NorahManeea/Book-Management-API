@@ -31,58 +31,44 @@ public class BookControllerTest {
 
     @Test
     void getAllBooks() {
-        // Arrange
         List<Book> books = new ArrayList<>();
-        books.add(new Book(1L, "ISBN1", "Book 1", "Description 1"));
-        books.add(new Book(2L, "ISBN2", "Book 2", "Description 2"));
+        books.add(new Book(1L, "ISBN1", "Book 1", "Description 1", "Fiction", 2022,190, "Author1"));
+        books.add(new Book(1L, "ISBN1", "Book 1", "Description 1", "Fiction", 2022, 190,"Author1"));
         when(bookService.getAllBooks()).thenReturn(books);
 
-        // Act
         ResponseEntity<List<Book>> response = bookController.getAllBooks();
 
-        // Assert
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(books, response.getBody());
     }
 
     @Test
     void getBookById_existingId() {
-        // Arrange
         long id = 1L;
-        Book book = new Book(2L, "ISBN2", "Book 2", "Description 2");
+        Book book = new Book(1L, "ISBN1", "Book 1", "Description 1", "Fiction", 2022,190, "Author1");
         when(bookService.getBookById(id)).thenReturn(Optional.of(book));
 
-        // Act
         ResponseEntity<Book> response = bookController.getBookById(id);
 
-        // Assert
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(book, response.getBody());
     }
 
     @Test
     void getBookById_nonExistingId() {
-        // Arrange
         long id = 1L;
         when(bookService.getBookById(id)).thenReturn(Optional.empty());
-
-        // Act
         ResponseEntity<Book> response = bookController.getBookById(id);
-
-        // Assert
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
     @Test
     void addBook() {
-        // Arrange
-        Book book = new Book(2L, "ISBN2", "Book 2", "Description 2");
+        Book book = new Book(1L, "ISBN1", "Book 1", "Description 1", "Fiction", 2022, 190,"Author1");
         when(bookService.saveBook(book)).thenReturn(book);
 
-        // Act
         ResponseEntity<Book> response = bookController.addBook(book);
 
-        // Assert
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
         assertEquals(book, response.getBody());
     }
