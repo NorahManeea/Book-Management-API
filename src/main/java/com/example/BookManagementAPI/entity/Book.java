@@ -26,11 +26,11 @@ public class Book {
     private String title;
     private String description;
     private String genre;
-    private int publicationYear;
+    private Integer publicationYear;
     private float price;
     private String author;
     private BookStatus status;
-
+    private Integer totalPages;
     @OneToMany(mappedBy = "book", fetch = FetchType.LAZY)
     private List<Borrowing> bookBorrows = new ArrayList<>();
 

@@ -1,6 +1,6 @@
 package com.example.BookManagementAPI.dto;
 
-import jakarta.validation.constraints.Min;
+import com.example.BookManagementAPI.enums.BookStatus;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
@@ -16,11 +16,9 @@ public class BookDTO {
     private String description;
     private String genre;
     private String author;
+    private BookStatus status;
     @PositiveOrZero(message = "Publication year must be a non-negative value")
-    private int publicationYear;
+    private Integer publicationYear;
     @PositiveOrZero(message = "Total pages must be a non-negative value")
-    private int totalPages;
-    @Min(value = 0, message = "Stock must not be negative")
-    private int stock;
-
+    private Integer totalPages;
 }
