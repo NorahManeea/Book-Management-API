@@ -13,7 +13,6 @@ public class BookMapper {
         book.setAuthor(bookDto.getAuthor());
         book.setStatus(bookDto.getStatus());
         book.setPublicationYear(bookDto.getPublicationYear());
-        book.setTotalPages(bookDto.getTotalPages());
         return book;
     }
 
@@ -26,7 +25,6 @@ public class BookMapper {
         bookDto.setAuthor(book.getAuthor());
         bookDto.setStatus(book.getStatus());
         bookDto.setPublicationYear(book.getPublicationYear());
-        bookDto.setTotalPages(book.getTotalPages());
         return bookDto;
     }
 }

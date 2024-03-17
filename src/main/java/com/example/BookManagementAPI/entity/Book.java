@@ -5,9 +5,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 
 @Entity
 @Getter
@@ -19,19 +16,32 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @NotBlank
     @Size(min = 1, max = 20)
+    @Column(unique = true)
     private String isbn;
 
+    @NotBlank
+    @Size(min = 1, max = 255)
     private String title;
-    private String description;
-    private String genre;
-    private Integer publicationYear;
-    private float price;
-    private String author;
-    private BookStatus status;
-    private Integer totalPages;
-    @OneToMany(mappedBy = "book", fetch = FetchType.LAZY)
-    private List<Borrowing> bookBorrows = new ArrayList<>();
 
+    @Size(max = 1000)
+    private String description;
+
+    @NotBlank
+    @Size(min = 1, max = 255)
+    private String genre;
+
+    @PositiveOrZero(message = "Publication year must be a non-negative value")
+    private Integer publicationYear;
+
+    @PositiveOrZero(message = "Price must be a non-negative value")
+    private Float price;
+
+    @NotBlank
+    @Size(min = 1, max = 255)
+    private String author;
+
+    @Enumerated(EnumType.STRING)
+    private BookStatus status;
 }

@@ -1,7 +1,7 @@
 package com.example.BookManagementAPI.controller;
 
-
 import com.example.BookManagementAPI.entity.User;
+import com.example.BookManagementAPI.exception.ApiException;
 import com.example.BookManagementAPI.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
@@ -30,10 +30,9 @@ public class UserController {
 
     @Operation(summary = "Get a user by ID")
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable("id") Long id) {
-        Optional<User> user = userService.getUserById(id);
-        return user.map(u -> new ResponseEntity<>(u, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+        Optional<User> users = userService.getUserById(id);
+        return users.map(user -> new ResponseEntity<>(user, HttpStatus.OK))
+                .orElseThrow(() -> new ApiException("User not found with ID: " + id));
     }
-
 }

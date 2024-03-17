@@ -1,6 +1,5 @@
 package com.example.BookManagementAPI.controller;
 
-
 import com.example.BookManagementAPI.entity.Book;
 import com.example.BookManagementAPI.exception.ApiException;
 import com.example.BookManagementAPI.service.BookService;
@@ -30,15 +29,14 @@ public class BookController {
             @RequestParam(required = false, defaultValue = "10") int size
     ) {
         Page<Book> paginatedBooks = bookService.getPaginatedBooks(page, size);
-        return ResponseEntity.ok(paginatedBooks);
+        return new ResponseEntity<>(paginatedBooks, HttpStatus.OK);
     }
-
 
     @Operation(summary = "Get a book by ID")
     @GetMapping("/{id}")
-    public ResponseEntity<Book> getBookById(@PathVariable("id") Long id) {
+    public ResponseEntity<Book> getBookById(@PathVariable Long id) {
         Optional<Book> book = bookService.getBookById(id);
-        return book.map(ResponseEntity::ok)
+        return book.map(b -> new ResponseEntity<>(b, HttpStatus.OK))
                 .orElseThrow(() -> new ApiException("Book not found with ID: " + id));
     }
 
@@ -53,14 +51,13 @@ public class BookController {
     @PutMapping("/{id}")
     public ResponseEntity<Book> updateBook(@PathVariable Long id, @RequestBody Book book) {
         Book updatedBook = bookService.updateBook(id, book);
-        return ResponseEntity.ok(updatedBook);
+        return new ResponseEntity<>(updatedBook, HttpStatus.OK);
     }
 
     @Operation(summary = "Delete book By ID")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBook(@PathVariable Long id) {
         bookService.deleteBook(id);
-        return ResponseEntity.noContent().build();
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
-
