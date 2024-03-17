@@ -19,14 +19,13 @@ The Book Management API is a RESTful web service built using Spring Boot to mana
 
 ## Endpoints
 ``` 
-GET /api/book
-POST /api/book
-GET /api/book/{bookId}
-PUT /api/book/{bookId}
-DELETE /api/book/{bookId}
+GET /api/v1/books
+POST /api/v1/books
+GET /api/v1/books/{id}
+PUT /api/v1/books/{id}
+DELETE /api/v1/books/{id}
 
 
-GET /api/borrowings
-POST /api/borrowings
-GET /api/borrowings/{borrowingId}
+GET /api/v1/users
+POST /api/v1/users/{id}
 ```
