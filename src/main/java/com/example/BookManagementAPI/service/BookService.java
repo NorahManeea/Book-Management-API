@@ -5,6 +5,10 @@ import com.example.BookManagementAPI.entity.Book;
 import com.example.BookManagementAPI.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -14,10 +18,10 @@ import java.util.Optional;
 public class BookService {
     private final BookRepository bookRepository;
 
-    public List<Book> getAllBooks(){
-        return bookRepository.findAll();
+    public Page<Book> getPaginatedBooks(int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return bookRepository.findAll(pageRequest);
     }
-
     public Optional<Book> getBookById(Long id){
         return bookRepository.findById(id);
     }
@@ -34,7 +38,6 @@ public class BookService {
                     book.setDescription(updatedBook.getDescription());
                     book.setGenre(updatedBook.getGenre());
                     book.setAuthor(updatedBook.getAuthor());
-                    book.setStock(updatedBook.getStock());
                     return bookRepository.save(book);
                 })
                 .orElse(null);
@@ -42,6 +45,7 @@ public class BookService {
     public void deleteBook(Long id) {
         bookRepository.deleteById(id);
     }
+
 }
 
 

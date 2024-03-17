@@ -1,6 +1,7 @@
 package com.example.BookManagementAPI.service;
 
 import com.example.BookManagementAPI.entity.Borrowing;
+import com.example.BookManagementAPI.enums.BookStatus;
 import com.example.BookManagementAPI.repository.BorrowingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,19 +23,8 @@ public class BorrowingService {
     }
 
     public Borrowing borrowBook(Borrowing borrowing) {
+        borrowing.getBook().setStatus(BookStatus.BORROWED);
         return borrowingRepository.save(borrowing);
-    }
-
-    public Borrowing updateBorrowing(Long id, Borrowing updatedBorrowing) {
-        return borrowingRepository.findById(id)
-                .map(borrowing -> {
-                    borrowing.setBook(updatedBorrowing.getBook());
-                    borrowing.setUser(updatedBorrowing.getUser());
-                    borrowing.setBorrowDate(updatedBorrowing.getBorrowDate());
-                    borrowing.setReturnDate(updatedBorrowing.getReturnDate());
-                    return borrowingRepository.save(borrowing);
-                })
-                .orElse(null);
     }
 
     public void deleteBorrowing(Long id) {

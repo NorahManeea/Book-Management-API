@@ -11,9 +11,12 @@ import lombok.*;
 @AllArgsConstructor
 public class UserDTO {
     private Long id;
-    @NotBlank(message = "Username should be filled!")
+
+    @NotBlank(message = "Username should not be blank")
     private String username;
-    @NotBlank(message = "Email should be filled!")
+
+    @NotBlank(message = "Email should not be blank")
     private String email;
+
     private Role role;
 }

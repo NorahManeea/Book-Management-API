@@ -4,6 +4,7 @@ import com.example.BookManagementAPI.enums.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,18 +19,22 @@ import java.util.Collection;
 @Table(name = "users")
 public class User implements UserDetails {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(nullable = false)
-    @NotBlank(message = "username should be filled!")
+    @NotNull(message = "username should not be null!")
     private String username;
+
     @Column(nullable = false)
-    @NotBlank(message = "password should be filled!")
+    @NotNull(message = "password should not be null!")
     private String password;
+
     @Column(nullable = false)
-    @NotBlank(message = "email should be filled!")
+    @NotNull(message = "email should not be null!")
     @Email
     private String email;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 

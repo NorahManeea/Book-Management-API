@@ -2,9 +2,11 @@ package com.example.BookManagementAPI.controller;
 
 
 import com.example.BookManagementAPI.entity.Book;
+import com.example.BookManagementAPI.exception.ApiException;
 import com.example.BookManagementAPI.service.BookService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,17 +26,21 @@ public class BookController {
 
     @Operation(summary = "Get all books")
     @GetMapping
-    public ResponseEntity<List<Book>> getAllBooks(){
-        List<Book> books = bookService.getAllBooks();
-        return new ResponseEntity<>(books, HttpStatus.OK);
+    public ResponseEntity<Page<Book>> getAllBooks(
+            @RequestParam(required = false, defaultValue = "0") int page,
+            @RequestParam(required = false, defaultValue = "10") int size
+    ) {
+        Page<Book> paginatedBooks = bookService.getPaginatedBooks(page, size);
+        return ResponseEntity.ok(paginatedBooks);
     }
+
 
     @Operation(summary = "Get a book by ID")
     @GetMapping("/{id}")
-    public ResponseEntity<Book> getBookById(@PathVariable("id") Long id){
+    public ResponseEntity<Book> getBookById(@PathVariable("id") Long id) {
         Optional<Book> book = bookService.getBookById(id);
-        return book.map(b -> new ResponseEntity<>(b, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return book.map(ResponseEntity::ok)
+                .orElseThrow(() -> new ApiException("Book not found with ID: " + id));
     }
 
     @Operation(summary = "Add a new book")
@@ -48,11 +54,7 @@ public class BookController {
     @PutMapping("/{id}")
     public ResponseEntity<Book> updateBook(@PathVariable Long id, @RequestBody Book book) {
         Book updatedBook = bookService.updateBook(id, book);
-        if (updatedBook != null) {
-            return ResponseEntity.ok(updatedBook);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(updatedBook);
     }
 
     @Operation(summary = "Delete book By ID")
