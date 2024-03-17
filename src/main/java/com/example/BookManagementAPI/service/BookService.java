@@ -25,6 +25,23 @@ public class BookService {
     public Book saveBook(Book book) {
         return bookRepository.save(book);
     }
+
+    public Book updateBook(Long id, Book updatedBook) {
+        return bookRepository.findById(id)
+                .map(book -> {
+                    book.setIsbn(updatedBook.getIsbn());
+                    book.setTitle(updatedBook.getTitle());
+                    book.setDescription(updatedBook.getDescription());
+                    book.setGenre(updatedBook.getGenre());
+                    book.setAuthor(updatedBook.getAuthor());
+                    book.setStock(updatedBook.getStock());
+                    return bookRepository.save(book);
+                })
+                .orElse(null);
+    }
+    public void deleteBook(Long id) {
+        bookRepository.deleteById(id);
+    }
 }
 
 

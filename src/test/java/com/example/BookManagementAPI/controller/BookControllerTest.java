@@ -2,6 +2,8 @@ package com.example.BookManagementAPI.controller;
 
 import com.example.BookManagementAPI.entity.Book;
 import com.example.BookManagementAPI.service.BookService;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -24,11 +26,14 @@ public class BookControllerTest {
     @InjectMocks
     private BookController bookController;
 
+    @BeforeAll
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
     }
 
+    @AfterEach
     @Test
     void getAllBooks() {
         List<Book> books = new ArrayList<>();
